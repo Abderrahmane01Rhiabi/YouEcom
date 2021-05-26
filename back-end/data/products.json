@@ -1,0 +1,59 @@
+[
+    {
+        "name" : "Nettoyant Moto Auto Bateau vélo inox cuivre BELGOM ALU aluminium pot 250ml NEUF",
+        "price" : 36.95,
+        "description" : "Efficace pour polir à la main embiellages, masses d'équilibrages, culasses, conduits d'admission et d'echappement,...Contient des charges minérales calibrées très fines permettant un polissage doux et sans rayures des métaux légBELGOM Alu permet également de roder soupapes, cames et portées, pignons,..NEUF - Envoi sous 24HConvient pour tout alliage sur motos, autos, bateaux, objets d'art, seaux à champagne, argenterie, ...",
+        "ratings" : 4.4,
+        "images" : [{
+                    "public_id" : "products/s-l300_g32zov.jpg",
+                    "url" : "https://res.cloudinary.com/youecom/image/upload/v1620319752/products/s-l300_g32zov.jpg"
+        }],
+        "category" : "Accessories",
+        "seller" : "ebay",
+        "stock" : 20,
+        "numOfReviews" : 24,
+        "reviews" : []
+    },
+    {
+        "name" : "Diablo X-Horn Silla Gaming Oficina Gamer Apoyabrazos 3D",
+        "price" : 98.00,
+        "description" : "X-HORN 2.0 : nuestra robusta silla para juegos promete una experiencia de estar sentada única durante horas de sesiones de juego o trabajo a largo plazo en la PC. La construcción ergonómica de la silla ofrece un excelente soporte para la cabeza y toda la columna. Ideal para usar en el hogar u oficina durante varias horas.",
+        "ratings" : 4.5,
+        "images" : [{
+                        "public_id" : "products/s-l1600_1_ctkf7y.jpg",
+                        "url" : "https://res.cloudinary.com/youecom/image/upload/v1620320076/products/s-l1600_1_ctkf7y.jpg"
+                    },
+                    {
+                        "public_id" : "products/s-l1600_2_rqrv1o.jpg",
+                        "url" : "https://res.cloudinary.com/youecom/image/upload/v1620320055/products/s-l1600_2_rqrv1o.jpg"
+                    }   
+        ],
+        "category" : "Home",
+        "seller" : "ebay",
+        "stock" : 5,
+        "numOfReviews" : 14,
+        "reviews" : []
+    },
+    {
+        "name" : "Pack Exclusif Microsoft Surface Pro 7 Ordinateur Portable (Windows 10, écran tactile 12.3, Intel Core i5, 8Go RAM, 128Go SSD) + clavier AZERTY français Type Cover Noir + Stylet Surface Platine",
+        "price" : 1169.75,
+        "description" : "Outlet Anciennes collections, fin de séries, articles commandés en trop grande quantité, … découvrez notre sélection de produits à petits prix Profitez-en !Offres de remboursement, prix chocs, packs promo, venez vite profiter de nos promotions Informatique du moment !Profitez des Offres Reconditionnées. Offres Reconditionnées est un service d'Amazon.fr vous permettant d'acheter à prix réduits des articles d'occasion, retournés par nos clients, endommagés dans nos entrepôts ou par les transporteurs Nouveau : découvrez les applis et les jeux que vous préférez pour votre mobile et tablette Android sur l’App-Shop Amazon et téléchargez chaque jour une application offerteGratuit : téléchargez l'application Amazon pour iOS et Android et facilitez vos achats sur smartphones et tablettes ! Découvrez les avantages de l'application Amazon.",
+        "ratings" : 4.5,
+        "images" : [{
+                        "public_id" : "products/t%C3%A9l%C3%A9charg%C3%A9_cu04lq.jpg",
+                        "url" : "https://res.cloudinary.com/youecom/image/upload/v1620320824/products/t%C3%A9l%C3%A9charg%C3%A9_cu04lq.jpg"
+                    },
+                    {
+                        "public_id" : "products/t%C3%A9l%C3%A9charg%C3%A9_1_jxr4ba.jpg",
+                        "url" : "https://res.cloudinary.com/youecom/image/upload/v1620320824/products/t%C3%A9l%C3%A9charg%C3%A9_1_jxr4ba.jpg"
+                    }   
+        ],
+        "category" : "Laptop",
+        "seller" : "amazon",
+        "stock" : 50,
+        "numOfReviews" : 40,
+        "reviews" : []
+    }
+
+    
+]
