@@ -17,7 +17,7 @@ exports.newProduct = catchAsyncErrors(async (req, res ,next) =>{
 //get all products => /api/products
 exports.getProducts = catchAsyncErrors(async (req, res, next) =>{
 
-    const apiFeatures = new APIFeatures(Product.find(), req.query).search();
+    const apiFeatures = new APIFeatures(Product.find(), req.query).search().filter();
 
     const products = await apiFeatures.query;
 
