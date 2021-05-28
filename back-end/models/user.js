@@ -70,7 +70,20 @@ userSchema.methods.getJwtToken = function(){
         });
 }
 
-// generate pass reset token
+// generate password reset token
+userSchema.methods.getResetPassToken = function(){
+    // token generate 
+    const resetToken = crypto.randomBytes(20).toString('hex');
+    console.log(resetToken);
 
+    //hash and set to resetPassToken
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+    // set token exprire time 
+    this.resetPasswordToken = Date.now() + 30 * 60 * 1000;
+
+    return resetToken;
+
+}
 
 module.exports = mongoose.model('User',userSchema);
