@@ -136,7 +136,7 @@ exports.resetPass = catchAsyncErrors( async (req,res,next) =>{
 
     await user.save();
 
-    sendToken(user, 200, res)
+    sendToken(user, 200, res);
 
 })
 
@@ -144,7 +144,7 @@ exports.resetPass = catchAsyncErrors( async (req,res,next) =>{
 exports.logout = catchAsyncErrors( async (req,res,next) =>{
     res.cookie('token',null,{
         expires: new Date( Date.now()),
-        httpOnly : true //
+        httpOnly : true //?
     });
 
     res.status(200).json({
