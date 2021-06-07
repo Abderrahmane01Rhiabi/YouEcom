@@ -5,7 +5,6 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 const APIFeatures = require('../utils/apiFeatures');
 
 
-//Creation de produit => /api/admin/product/new
 exports.newProduct = catchAsyncErrors(async (req, res ,next) =>{   
     
     req.body.user = req.user.id;
@@ -17,7 +16,6 @@ exports.newProduct = catchAsyncErrors(async (req, res ,next) =>{
     })
 })
 
-//get all products => /api/products
 exports.getProducts = catchAsyncErrors(async (req, res, next) =>{
 
     //result per page
@@ -41,7 +39,6 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) =>{
     })
 })
 
-//get single prod details => /api/product/:id
 exports.getSingleProduct = catchAsyncErrors(async (req, res, next) =>{
 
     const product = await Product.findById(req.params.id); //retourne tous les prod
@@ -56,7 +53,6 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) =>{
     })
 })
 
-//update pduct => /api/admin/product/:id
 exports.updateProduct = catchAsyncErrors(async (req, res, next) =>{
 
     let product = await Product.findById(req.params.id); //retourne tous les prod
@@ -77,7 +73,6 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) =>{
     })
 })
 
-//delete pduct => /api/admin/product/:id
 exports.deleteProduct = catchAsyncErrors(async (req, res, next) =>{
 
     const product = await Product.findById(req.params.id); //retourne tous les prod
@@ -99,7 +94,6 @@ exports.deleteProduct = catchAsyncErrors(async (req, res, next) =>{
     })
 })
 
-//Create new review => /api/v1/review
 //?
 exports.createProductReview = catchAsyncErrors(async (req, res, next) =>{
 
@@ -137,7 +131,7 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) =>{
     })
 })
 
-//get product reviews => /api/v1/reviews
+
 exports.getProductReviews = catchAsyncErrors(async (req, res, next) =>{
 
     const product = await Product.findById(req.query.id);
@@ -149,7 +143,6 @@ exports.getProductReviews = catchAsyncErrors(async (req, res, next) =>{
 
 })
 
-//delete product reviews => /api/v1/reviews
 
 exports.deleteProductReviews = catchAsyncErrors(async (req, res, next) =>{
 

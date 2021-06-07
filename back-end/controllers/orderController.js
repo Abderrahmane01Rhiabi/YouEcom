@@ -4,7 +4,7 @@ const Product = require('../models/product');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
-//Create a new order => /api/v1/order/new
+
 exports.newOrder = catchAsyncErrors( async (req,res,next) =>{
   
     const { orderItems, shippingInfo, itemsPrice, taxPrice, shippingPrice, totalPrice, paymentInfo } = req.body;
@@ -18,7 +18,6 @@ exports.newOrder = catchAsyncErrors( async (req,res,next) =>{
     
 })
 
-//get single order => /api/v1/order/:id
 exports.getSingleOrder = catchAsyncErrors( async (req,res,next) =>{
   
     const order = await Order.findById(req.params.id).populate('user', 'name email');
@@ -34,7 +33,6 @@ exports.getSingleOrder = catchAsyncErrors( async (req,res,next) =>{
     
 })
 
-//get logged in user orders => /api/v1/orders/me
 exports.myOrders = catchAsyncErrors( async (req,res,next) =>{
   
     const orders = await Order.find({user : req.user.id});
@@ -46,7 +44,6 @@ exports.myOrders = catchAsyncErrors( async (req,res,next) =>{
     
 })
 
-//get all orders => /api/v1/admin/orders
 exports.allOrders = catchAsyncErrors( async (req,res,next) =>{
   
     const orders = await Order.find();
@@ -64,7 +61,6 @@ exports.allOrders = catchAsyncErrors( async (req,res,next) =>{
     
 })
 
-//update process order => /api/v1/admin/order/:id
 exports.updateOrder = catchAsyncErrors( async (req,res,next) =>{
   
     const order = await Order.findById(req.params.id);
@@ -96,7 +92,6 @@ async function updateStock(id, quantity){
     await product.save({ validateBeforeSave : false});
 }
 
-//Delete order => /api/v1/admin/order/:id
 exports.deleteOrder = catchAsyncErrors( async (req,res,next) =>{
   
     const order = await Order.findById(req.params.id);

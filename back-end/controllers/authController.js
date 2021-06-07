@@ -6,9 +6,7 @@ const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
 const crypto = require('crypto');
 
-//const cloudinary = require('cloudinary');
-
-//Register a user => /api/register
+const cloudinary = require('cloudinary');
 
 exports.registerUser = catchAsyncErrors( async (req,res,next) =>{
 
@@ -37,7 +35,6 @@ exports.registerUser = catchAsyncErrors( async (req,res,next) =>{
     // });
 });
 
-//login user => /api/1/login
 exports.loginUser= catchAsyncErrors( async (req,res,next) =>{
     const {email, password} = req.body;
 
@@ -69,7 +66,6 @@ exports.loginUser= catchAsyncErrors( async (req,res,next) =>{
     // })
 })
 
-// Forgot password => /api/v1/password/forgot
 exports.forgotPass = catchAsyncErrors( async (req,res,next) =>{
 
     const user = await User.findOne({email : req.body.email});
@@ -114,7 +110,6 @@ exports.forgotPass = catchAsyncErrors( async (req,res,next) =>{
 
 })
 
-// reset password => /api/v1/password/reset/:token
 exports.resetPass = catchAsyncErrors( async (req,res,next) =>{
 
     //hash the url token
@@ -142,7 +137,6 @@ exports.resetPass = catchAsyncErrors( async (req,res,next) =>{
 
 })
 
-// logout user => /api/v1/logout
 exports.logout = catchAsyncErrors( async (req,res,next) =>{
     res.cookie('token',null,{
         expires: new Date( Date.now()),
@@ -156,19 +150,19 @@ exports.logout = catchAsyncErrors( async (req,res,next) =>{
 
 })
 
-exports.updateUserProfile = catchAsyncErrors( async (req,res,next) =>{
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.user.id).select('+password');
 
-    //check previous user password
-    const isMatched = await user.comparePassword(req.body.oldPassword);
-    if(!isMatched){
-        return next(new ErrorHandler('Old Password is incorrect'));
+    // Check previous user password
+    const isMatched = await user.comparePassword(req.body.oldPassword)
+    if (!isMatched) {
+        return next(new ErrorHandler('Old password is incorrect'));
     }
 
     user.password = req.body.password;
     await user.save();
 
-    sendToken(user, 200, res);
+    sendToken(user, 200, res)
 
 })
 
@@ -186,26 +180,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
         name: req.body.name,
         email: req.body.email
     }
-
-    /*// Update avatar
-    if (req.body.avatar !== '') {
-        const user = await User.findById(req.user.id)
-
-        const image_id = user.avatar.public_id;
-        const res = await cloudinary.v2.uploader.destroy(image_id);
-
-        const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
-            folder: 'avatars',
-            width: 150,
-            crop: "scale"
-        })
-
-        newUserData.avatar = {
-            public_id: result.public_id,
-            url: result.secure_url
-        }
-    }*/
-
+   
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true,
@@ -223,5 +198,51 @@ exports.allUsers = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({
         success: true,
         users
+    })
+})
+
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User does not found with id: ${req.params.id}`))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
+
+exports.updateUser = catchAsyncErrors(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    })
+
+    res.status(200).json({
+        success: true
+    })
+})
+
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+        return next(new ErrorHandler(`User does not found with id: ${req.params.id}`))
+    }
+
+   
+    await user.remove();
+
+    res.status(200).json({
+        success: true,
     })
 })
