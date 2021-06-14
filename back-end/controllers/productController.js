@@ -110,16 +110,16 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) =>{
 
     const product = await Product.findById(productId);
  
-    const isReviewd = product.reviews.find( r => r.user.toString() === req.user._id.toString())
-
-    if(isReviewd){
+    const isReviewd = product.reviews.find( r => r.user.toString() === req.user._id.toString()) // if he reviewd the product
+                                            //id in product === id in user
+    if(isReviewd){ //update 
         product.reviews.forEach(review =>{
-            if(review.user.toString() === req.user._id.toString()){
+            if(review.user.toString() === req.user._id.toString()){ //jusqua found
                 review.comment = comment;
                 review.rating = rating;
             }
-        })
-    }else{
+        }) 
+    }else{ //new
         product.reviews.push(review);
         product.numOfReviews = product.reviews.length;
     }
