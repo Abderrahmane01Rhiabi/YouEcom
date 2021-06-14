@@ -17,13 +17,14 @@ exports.newProduct = catchAsyncErrors(async (req, res ,next) =>{
     })
 })
 
+// products?keyword=mac
 exports.getProducts = catchAsyncErrors(async (req, res, next) =>{
 
     //result per page
     const resPerPage = 4;
     const productCount = await Product.countDocuments();
 
-
+ 
 
     const SFP = new SFP(Product.find(), req.query)
                         .search()
