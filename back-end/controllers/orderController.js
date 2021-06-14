@@ -20,7 +20,7 @@ exports.newOrder = catchAsyncErrors( async (req,res,next) =>{
 
 exports.getSingleOrder = catchAsyncErrors( async (req,res,next) =>{
   
-    const order = await Order.findById(req.params.id).populate('user', 'name email');
+    const order = await Order.findById(req.params.id).populate('user', 'name email'); // populate : eference documents in other collections.
 
     if(!order) {
         return next(new ErrorHandler('No order found with this ID', 404));
@@ -35,10 +35,10 @@ exports.getSingleOrder = catchAsyncErrors( async (req,res,next) =>{
 
 exports.myOrders = catchAsyncErrors( async (req,res,next) =>{
   
-    const orders = await Order.find({user : req.user.id});
+    const orders = await Order.find({user : req.user.id});  
 
     res.status(200).json({
-        success : true,
+        success : true, 
         orders
     })
     
@@ -50,8 +50,8 @@ exports.allOrders = catchAsyncErrors( async (req,res,next) =>{
 
     let totalAmount = 0;
     orders.forEach(order =>{
-            totalAmount += order.totalPrice
-    })
+            totalAmount += order.totalPrice // after my frend in the front will use this
+     })
 
     res.status(200).json({
         success : true,
@@ -69,14 +69,17 @@ exports.updateOrder = catchAsyncErrors( async (req,res,next) =>{
         return next(new ErrorHandler('You have already delivered this order', 400));
     }
 
-    order.orderItems.forEach(async item =>{
+    //forEach : we have a table oh items
+    order.orderItems.forEach(async item =>{ // have all the orders 
         await updateStock(item.product, item.quantity)
+        //item.product -> id of the product
+        //item.quantity -> quantity selled
     })
 
     order.orderStatus = req.body.status;
     order.deliveredAt = Date.now();
     
-    await order.save();
+    await order.save(); 
 
     res.status(200).json({
         success : true
@@ -85,7 +88,7 @@ exports.updateOrder = catchAsyncErrors( async (req,res,next) =>{
 })
 
 async function updateStock(id, quantity){
-    const product = await Product.findById(id);
+    const product = await Product.findById(id); // change in product with the id
 
     product.stock = product.stock - quantity;
 

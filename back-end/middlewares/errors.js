@@ -1,18 +1,26 @@
 const ErrorHandler = require('../utils/errorHandler');
 
+//(req, res, <-next->) 
 module.exports = (err,req,res,next)=>{
-    err.statusCode = err.statusCode || 500; //is status code is not existe then 500 
-
-    if(process.env.NODE_ENV === 'DEVELOPMENT'){
+    err.statusCode = err.statusCode || 500; //if status code is not existe then 500 
+    
+    res.status(err.statusCode).json({
+        success: false,
+        error: err,
+        errMessage: err.message,
+        stack: err.stack
+    });
+   
+    /*if(process.env.NODE_ENV === 'DEVELOPMENT'){
         res.status(err.statusCode).json({
             success: false,
             error: err,
             errMessage: err.message,
             stack: err.stack
         });
-    }
+    }*/
 
-    if(process.env.NODE_ENV === 'PRODUCTION'){
+    /*if(process.env.NODE_ENV === 'PRODUCTION'){ 
         let error = {...err} //?
         
         error.message = err.message;
@@ -36,7 +44,7 @@ module.exports = (err,req,res,next)=>{
             error = new ErrorHandler(message, 400); //?
         }
 
-        //handling wrong jwt error
+        //handling wrong jwt error  
         if(err.name === 'JsonWebTokenError'){
             const message = 'JSON Web Token is invalid. Try Again!!!'
             error = new ErrorHandler(message, 400); //?
@@ -53,7 +61,7 @@ module.exports = (err,req,res,next)=>{
             success: false,
             message: error.message ||  'Internal Server Error'
         });
-    }
+    }*/
 } 
 
 //explication error | errorHandeler| midelleware error

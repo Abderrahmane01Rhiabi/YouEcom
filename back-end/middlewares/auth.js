@@ -20,7 +20,7 @@ exports.isAuthUser = catchAsyncErrors( async (req,res,next)=>{
 })
 
 // Handling users roles
-exports.authRoles = (...roles) =>{
+exports.authRoles = (...roles) =>{ //spread the roles
     return (req,res,next) => {
         console.log(req.user.role);
         if(!roles.includes(req.user.role)) {

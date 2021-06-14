@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const connectDB = require('./config/database');
 
 
-//Handle uncaught exceptions
+//Handle uncaught exceptions -> server : off
 process.on('uncaughtException', err =>{
     console.log(`ERROR : ${err.message}`);
     console.log(`Shutting down the server due to uncaught exceptions`); //?

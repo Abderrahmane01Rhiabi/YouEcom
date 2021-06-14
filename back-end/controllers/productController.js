@@ -2,14 +2,15 @@ const Product = require('../models/product');
 
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
-const APIFeatures = require('../utils/apiFeatures');
+const SFP = require('../utils/SFP');
 
 
 exports.newProduct = catchAsyncErrors(async (req, res ,next) =>{   
     
-    req.body.user = req.user.id;
+    req.body.user = req.user.id; //add seller id 
 
     const product = await Product.create(req.body);
+
     res.status(201).json({
         success : true,
         product 
@@ -24,12 +25,12 @@ exports.getProducts = catchAsyncErrors(async (req, res, next) =>{
 
 
 
-    const apiFeatures = new APIFeatures(Product.find(), req.query)
+    const SFP = new SFP(Product.find(), req.query)
                         .search()
-                        .filter()
+                        .filter() 
                         .pagination(resPerPage);
 
-    const products = await apiFeatures.query;
+    const products = await SFP.query;
 
     res.status(200).json({
         success : true,
@@ -44,7 +45,7 @@ exports.getSingleProduct = catchAsyncErrors(async (req, res, next) =>{
     const product = await Product.findById(req.params.id); //retourne tous les prod
 
     if(!product){
-        return next(new ErrorHandler('Product not found', 404));   
+        return next(new ErrorHandler('Product not found', 404));  
     }
 
     res.status(200).json({

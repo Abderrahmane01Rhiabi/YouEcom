@@ -51,10 +51,10 @@ const userSchema = new mongoose.Schema({
 userSchema.pre('save', async function(next) {
 
     if(!this.isModified('password')){
-        next(); //if the password is not modified the ok
+        next(); //if the password is not modified so its ok
     }
 
-    this.password = await bcrypt.hash(this.password, 10);
+    this.password = await bcrypt.hash(this.password, 10); //strong of hash
 
 });
 
@@ -63,9 +63,10 @@ userSchema.methods.comparePassword = async function(pass){
     return await bcrypt.compare(pass,this.password);
 }
 
-// Return JWT token
+// Return JWT token ou dok les val raj deja kaynin f config
 userSchema.methods.getJwtToken = function(){
-    return jwt.sign({ id : this._id}, process.env.JWT_SECRET, {
+    return jwt.sign({ id : this._id}, process.env.JWT_SECRET, 
+        {
             expiresIn: process.env.JWT_EXPIRES_TIME
         });
 }
@@ -73,18 +74,21 @@ userSchema.methods.getJwtToken = function(){
 // generate password reset token
 userSchema.methods.getResetPassToken = function(){
     // token generate 
-    const resetToken = crypto.randomBytes(20).toString('hex');
+    const resetToken = crypto.randomBytes(20).toString('hex'); //pasqe buffer -> toString
     console.log("resetToken : "+resetToken);
 
     //hash and set to resetPassToken
     this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
     console.log("resetPasswordToken : "+this.resetPasswordToken);
+    console.log("1 : "+crypto.createHash('sha256'));
+    console.log("2 : "+crypto.createHash('sha256').update(resetToken));
+    console.log("3 : "+crypto.createHash('sha256').update(resetToken).digest('hex'));
 
     // set token exprire time 
-    this.resetPasswordExpire = Date.now() + 30 * 60 * 1000;
+    this.resetPasswordExpire = Date.now() + 30 * 60 * 1000; //apres 30 min
     console.log("resetPasswordExpire "+this.resetPasswordExpire);
 
-    return resetToken;
+    return resetToken; // after we have to decripte and matcher with restpasstoken
 
 }
 

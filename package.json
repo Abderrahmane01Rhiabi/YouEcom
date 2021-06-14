@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node back-end/server.js",
     "dev": "SET NODE_ENV=DEVELOPMENT& nodemon back-end/server",
-    "prod": "SET NODE_ENV=PRODUCTION& nodemon back-end/server",
+    "_prod": "SET NODE_ENV=PRODUCTION& nodemon back-end/server",
     "seeder": "node back-end/utils/seeder.js"
   },
   "author": "RHIABI ABDOU",
