@@ -124,7 +124,7 @@ exports.createProductReview = catchAsyncErrors(async (req, res, next) =>{
         product.numOfReviews = product.reviews.length;
     }
 
-    product.ratings = product.reviews.reduce((acc, item) => item.rating + acc,0) /product.reviews.length;
+    product.ratings = product.reviews.reduce((acc, item) => item.rating + acc,0) / product.reviews.length; //(add all ratings / leng of product)
 
     await product.save({ validateBeforeSave : false});
 
@@ -150,11 +150,11 @@ exports.deleteProductReviews = catchAsyncErrors(async (req, res, next) =>{
 
     const product = await Product.findById(req.query.productId);
 
-    //id of the review that a want to delete 
+    //select all the reviews with out the id of the product that we want to delete 
     const reviews = product.reviews.filter(review => review._id.toString() !== req.query.id.toString());
- 
+    consloe.log(reviews);
     const numOfReviews = reviews.lenght;
-    
+    consloe.log(numOfReviews);
     const ratings = product.ratings = product.reviews.reduce((acc, item) => item.rating + acc,0) / reviews.length;
 
     await Product.findByIdAndUpdate(req.query.productId, {
